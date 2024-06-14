@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "iosfwd": "cpp",
+        "__mutex_base": "cpp",
+        "chrono": "cpp"
+    }
+}
