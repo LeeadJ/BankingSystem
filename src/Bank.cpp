@@ -36,7 +36,7 @@ BankAccount* Bank::getAccount(std::string userName, int userID, int accountNumeb
     User* user_ptr = getUser(userName, userID);
     if(user_ptr){
         for(auto& account : user_ptr->getAccounts()){
-            if(accountNumebr = account.getAccountNumber()){
+            if(accountNumebr == account.getAccountNumber()){
                 return &account;
             }
         }

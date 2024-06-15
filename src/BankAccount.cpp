@@ -5,7 +5,7 @@
 
 int BankAccount::nextAccountNumber = 100000;
 
-BankAccount::BankAccount(const std::string& owner, double balance) 
+BankAccount::BankAccount(const std::string& owner, double balance=0.0) 
     : m_owner(owner), m_balance(balance) , m_transactionHistory() {
         std::lock_guard<std::mutex> lock(m_mtx);
         m_accountNumber = nextAccountNumber++;

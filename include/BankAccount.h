@@ -27,7 +27,7 @@ class BankAccount {
         mutable std::mutex m_mtx;
 
     public:
-        BankAccount(const std::string& owner, double balance);
+        BankAccount(const std::string& owner, double balance=0.0);
         void deposit(double amount);
         bool withdraw(double amount);
         double getBalance() const;
