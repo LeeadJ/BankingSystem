@@ -19,17 +19,19 @@ struct TransactionDetails {
 
 class BankAccount {
     private:
+        static int nextAccountNumber;
         std::string m_owner;
+        int m_accountNumber;
         double m_balance;
         std::vector<TransactionDetails> m_transactionHistory;
         mutable std::mutex m_mtx;
 
     public:
         BankAccount(const std::string& owner, double balance);
-
         void deposit(double amount);
         bool withdraw(double amount);
         double getBalance() const;
+        int getAccountNumber() const;
         std::string getOwner() const;
         std::string getDateString() const;
         std::vector<TransactionDetails> getTransactionHistory() const;

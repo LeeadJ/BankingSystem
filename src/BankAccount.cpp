@@ -3,9 +3,13 @@
 #include <ctime>
 #include <iostream>
 
+int BankAccount::nextAccountNumber = 100000;
 
 BankAccount::BankAccount(const std::string& owner, double balance) 
-    : m_owner(owner), m_balance(balance){}
+    : m_owner(owner), m_balance(balance) , m_transactionHistory() {
+        std::lock_guard<std::mutex> lock(m_mtx);
+        m_accountNumber = nextAccountNumber++;
+    }
 
 void BankAccount::deposit(double amount){
     std::lock_guard<std::mutex> lock(m_mtx);
@@ -45,6 +49,11 @@ bool BankAccount::withdraw(double amount) {
 double BankAccount::getBalance() const {
     std::lock_guard<std::mutex> lock(m_mtx);
     return m_balance;
+}
+
+int BankAccount::getAccountNumber() const{
+    std::lock_guard<std::mutex> lock(m_mtx);
+    return m_accountNumber;
 }
 
 std::string BankAccount::getOwner() const {
