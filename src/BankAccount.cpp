@@ -1,6 +1,7 @@
 #include "../include/BankAccount.h"
 #include <chrono>
 #include <ctime>
+#include <iostream>
 
 
 BankAccount::BankAccount(const std::string& owner, double balance) 
@@ -18,6 +19,8 @@ void BankAccount::deposit(double amount){
     });
 
     m_balance += amount;
+    std::cout << "Deposited: " << amount << " to " << m_owner << "'s account, Balance: " << m_balance << std::endl;
+
 }
 
 bool BankAccount::withdraw(double amount) {
@@ -32,8 +35,10 @@ bool BankAccount::withdraw(double amount) {
             m_balance - amount
         });
         m_balance -= amount;
+        std::cout << "Withdrawn: " << amount << " from " << m_owner << "'s account, Balance: " << m_balance << std::endl;
         return true;
     }
+    std::cout << "Insufficient funds for withdrawal: " << amount << " from " << m_owner << "'s account, Balance: " << m_balance << std::endl;
     return false; // withdraw not allowed   
 }
 
