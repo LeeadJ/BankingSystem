@@ -1,5 +1,5 @@
-#include "UserInterface.h"
-#include "Transaction.h"
+#include "../include/UserInterface.h"
+#include "../include/Transaction.h"
 #include <iostream>
 #include <string>
 
@@ -14,12 +14,19 @@ void UserInterface::displayMenu(){
 }
 
 void UserInterface::handleUserInput() {
-    int userChoise;
+    int userChoice;
     while(true){
         displayMenu();
-        std::cin >> userChoise;
+        std::string line;
+        std::getline(std::cin, line);
+        try {
+            userChoice = std::stoi(line);
+        } catch(const std::invalid_argument& e) {
+            std::cout << "Invalid choice. Please enter a number." << std::endl;
+            continue;
+        }
 
-        switch(userChoise){
+        switch(userChoice){
             case 1: {
                 std::string name;
                 int userID;
@@ -34,7 +41,6 @@ void UserInterface::handleUserInput() {
             case 2: {
                 std::string name;
                 int userID;
-                double initialBalance;
                 std::cout << "Enter user name: ";
                 std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 std::getline(std::cin, name);

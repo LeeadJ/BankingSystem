@@ -28,6 +28,8 @@ class BankAccount {
 
     public:
         BankAccount(const std::string& owner, double balance=0.0);
+        BankAccount(const BankAccount& other);
+        
         void deposit(double amount);
         bool withdraw(double amount);
         double getBalance() const;
@@ -38,4 +40,4 @@ class BankAccount {
 
 };
 
-#endif BANKACCOUNT_H
+#endif 

@@ -15,6 +15,8 @@ class User {
 
     public:
         User(const std::string& name, int userID);
+        User(const User& other);
+        
         void addAccount(const BankAccount& account);
         BankAccount* getAccount(int accountNumebr);
         std::string getName() const;

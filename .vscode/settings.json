@@ -58,6 +58,8 @@
         "iterator": "cpp",
         "memory_resource": "cpp",
         "utility": "cpp",
-        "cinttypes": "cpp"
+        "cinttypes": "cpp",
+        "iostream": "cpp",
+        "thread": "cpp"
     }
 }

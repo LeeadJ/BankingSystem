@@ -1,4 +1,4 @@
-#include "Bank.h"
+#include "../include/Bank.h"
 #include <iostream>
 
 Bank::Bank() : m_users() {};
@@ -9,7 +9,7 @@ void Bank::addUser(const User& user){
     // checking id user already exists
     for(const auto& u : m_users){
         if(u.getName() == user.getName() && u.getUserID() == user.getUserID()){
-            std::cout << "Adduser Failes. User: " << user.getName() << " already exists." << std::endl;
+            std::cout << "addUser() Failed. User: " << user.getName() << " already exists." << std::endl;
             return;
         }
     }
@@ -17,11 +17,9 @@ void Bank::addUser(const User& user){
 }
 
 User* Bank::getUser(std::string userName, int userID){
-    std::lock_guard<std::mutex> lock(m_mtx);
-
     for(auto& user : m_users){
+        // std::cout << user.getName() << std::endl;
         if(user.getName() == userName && user.getUserID() == userID){
-            std::cout << "Adduser Failes. User: " << user.getName() << " already exists." << std::endl;
             return &user;
         }
     }
@@ -32,18 +30,29 @@ User* Bank::getUser(std::string userName, int userID){
 
 BankAccount* Bank::getAccount(std::string userName, int userID, int accountNumebr){
     std::lock_guard<std::mutex> lock(m_mtx);
-    
+
     User* user_ptr = getUser(userName, userID);
+    std::cout << "Here getUser " << user_ptr->getName() << std::endl;
+    std::cout << "Here getUser " << user_ptr->getUserID() << std::endl;
+    std::cout << "Here getUser " << user_ptr->getAccount(accountNumebr)->getAccountNumber() << std::endl;
+
     if(user_ptr){
         for(auto& account : user_ptr->getAccounts()){
             if(accountNumebr == account.getAccountNumber()){
+                std::cout << "Here getAccount: " << accountNumebr <<std::endl;
+
                 return &account;
             }
         }
+        //Account not found
+        std::cout << "Cannot find account number: " << accountNumebr << " for user: " << userName << "." << std::endl;
     }
-    // Bankaccount not found
+    // User not found
     else{
-        std::cout << "Cannot find account number: " << accountNumebr << " for acount user: " << userName << "." << std::endl;
+        std::cout << "Cannot find user: " << userName << " with ID: " << userID << "." << std::endl;
         return nullptr;
     }
+    std::cout << "Here getAccount: Null Pointer" << std::endl;
+
+    return nullptr;
 }

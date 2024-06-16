@@ -5,11 +5,14 @@
 
 int BankAccount::nextAccountNumber = 100000;
 
-BankAccount::BankAccount(const std::string& owner, double balance=0.0) 
+BankAccount::BankAccount(const std::string& owner, double balance) 
     : m_owner(owner), m_balance(balance) , m_transactionHistory() {
         std::lock_guard<std::mutex> lock(m_mtx);
         m_accountNumber = nextAccountNumber++;
     }
+
+BankAccount::BankAccount(const BankAccount& other)
+    : m_owner(other.m_owner), m_balance(other.m_balance), m_accountNumber(other.m_accountNumber) {}
 
 void BankAccount::deposit(double amount){
     std::lock_guard<std::mutex> lock(m_mtx);
